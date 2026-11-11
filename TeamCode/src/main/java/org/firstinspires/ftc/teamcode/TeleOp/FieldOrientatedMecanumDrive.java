@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.DriveTrain;
-import org.firstinspires.ftc.teamcode.mechanisms.FlyWheelMotor;
+import org.firstinspires.ftc.teamcode.mechanisms.FlyWheelAdvanced.FlyWheelMotor;
 import org.firstinspires.ftc.teamcode.mechanisms.IntakeMotor;
 
 @TeleOp(name = "Field Orientated Mecanum Drive", group = "TeleOp")
