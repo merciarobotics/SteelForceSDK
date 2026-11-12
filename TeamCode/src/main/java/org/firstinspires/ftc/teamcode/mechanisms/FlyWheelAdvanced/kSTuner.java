@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp (name = "kSTuner", group = "TeleOP")
 public class kSTuner extends OpMode {
-    // before we can do PIDF tuning, we need to know our target RPM for our motor
 
     FlyWheelMotor flyWheelMotor = new FlyWheelMotor();
 

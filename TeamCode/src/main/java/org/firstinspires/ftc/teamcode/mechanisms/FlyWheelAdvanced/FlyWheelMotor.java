@@ -23,7 +23,9 @@ public class FlyWheelMotor {
         flyWheelMotor.setPower(0);
     }
 
-    // --------------- PIDF Tunig Logic ------------------------
+    // --------------- PIDF Tuning Logic ------------------------
+
+    // https://www.youtube.com/watch?v=KVPdbWcAyUY
 
     // we create another init method as PIDF tuning works without encoding
     public void initPIDF(HardwareMap hwMap) {
@@ -32,7 +34,8 @@ public class FlyWheelMotor {
         flyWheelMotor.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    private double encoderCPM; // we need to get our motors specefic CPM
+    private double encoderCPM = 28;
+
     double kS, kV, kP; // need to tune these constants this week
 
     /*
@@ -50,10 +53,10 @@ public class FlyWheelMotor {
         return (getTicksPerSec() / encoderCPM) *60;
     }
 
-    public void setMotorRPM(double targetRPM) {
+    public void setMotorRPM(double targetRPM) { // our target RPM - around 1000
         // call every loop
         double error = targetRPM - getRPM();
-        double feedForward = (kV * targetRPM) +kS;
+        double feedForward = (kV * targetRPM) + kS;
         double feedBack = error * kP;
         double power = feedForward + feedBack;
 
