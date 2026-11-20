@@ -73,21 +73,22 @@ public class FieldOrientatedMecanumDrive extends OpMode {
 
         if (gamepad1.leftBumperWasReleased()) {
             pollen_motor_c = -pollen_motor_c;
+        }
 
-            pollenMotor.setPollenMotor(gamepad1.left_trigger * pollen_motor_c);
+        pollenMotor.setPollenMotor(gamepad1.left_trigger * pollen_motor_c);
 
-            if (gamepad1.rightBumperWasReleased()) {
-                nectar_motor_c = -nectar_motor_c;
-            }
+        if (gamepad1.rightBumperWasReleased()) {
+            nectar_motor_c = -nectar_motor_c;
+        }
 
-            nectarMotor.setNectarMotor(gamepad1.right_trigger * nectar_motor_c);
+        nectarMotor.setNectarMotor(gamepad1.right_trigger * nectar_motor_c);
 
-            if (pollenMotor.getRPM() == 1000) {
-                servos.setLowerServo(1);
-            }
-            if (nectarMotor.getRPM() == 1000) {
-                servos.setUpperServo(1);
-            }
+        if (pollenMotor.getRPM() == 1000) {
+            servos.setLowerServo(1);
+        }
+        if (nectarMotor.getRPM() == 1000) {
+            servos.setUpperServo(1);
+        }
 
 
             // ------------- Telemetry ------------------
@@ -97,4 +98,3 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         }
 
     }
-}
