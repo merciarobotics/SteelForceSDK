@@ -1,26 +1,20 @@
 package org.firstinspires.ftc.teamcode.mechanisms.FlyWheelAdvanced;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-@TeleOp(name = "FlyWheelTest", group = "TeleOp")
-public class FlyWheelMotor {
-    private DcMotor flyWheelMotor;
+public class NectarMotor {
+    private DcMotor flyWheelMotortwo;
 
     public void init(HardwareMap hwMap) {
-        flyWheelMotor = hwMap.get(DcMotor.class, "fly_wheel");
+        flyWheelMotortwo = hwMap.get(DcMotor.class, "nectar_shooter");
 
-        flyWheelMotor.setDirection(DcMotor.Direction.FORWARD);
+        flyWheelMotortwo.setDirection(DcMotor.Direction.REVERSE);
     }
 
-    public void setFlyWheelMotor(double  power) {
-        flyWheelMotor.setPower(power);
-    }
-
-    public void stopMotors() {
-        flyWheelMotor.setPower(0);
+    public void setNectarMotor(double  power) {
+        flyWheelMotortwo.setPower(power);
     }
 
     // --------------- PIDF Tuning Logic ------------------------
@@ -29,9 +23,9 @@ public class FlyWheelMotor {
 
     // we create another init method as PIDF tuning works without encoding
     public void initPIDF(HardwareMap hwMap) {
-        flyWheelMotor = hwMap.get(DcMotor.class, "fly_wheel");
-        flyWheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        flyWheelMotor.setDirection(DcMotor.Direction.FORWARD);
+        flyWheelMotortwo = hwMap.get(DcMotor.class, "fly_wheel");
+        flyWheelMotortwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        flyWheelMotortwo.setDirection(DcMotor.Direction.FORWARD);
     }
 
     private double encoderCPM = 28;
@@ -46,7 +40,7 @@ public class FlyWheelMotor {
 
     public double getTicksPerSec() {
         // cast into a DcMotorEx class as that class has more methods than the basic DcMotor, if wanted we could just turn it into a base Dc Motor
-        return ((DcMotorEx) flyWheelMotor).getVelocity();
+        return ((DcMotorEx) flyWheelMotortwo).getVelocity();
     }
 
     public double getRPM() {
@@ -61,7 +55,7 @@ public class FlyWheelMotor {
         double power = feedForward + feedBack;
 
 
-        setFlyWheelMotor(power);
+        setNectarMotor(power);
     }
 
 }

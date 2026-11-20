@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.mechanisms.FlyWheelAdvanced;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+@Disabled
 @TeleOp (name = "kSTuner", group = "TeleOP")
 public class kSTuner extends OpMode {
 
-    FlyWheelMotor flyWheelMotor = new FlyWheelMotor();
+    PollenMotor pollenMotor = new PollenMotor();
 
     public static double kS = 0;
 
@@ -15,7 +17,7 @@ public class kSTuner extends OpMode {
 
     @Override
     public void init() {
-        flyWheelMotor.initPIDF(hardwareMap);
+        pollenMotor.initPIDF(hardwareMap);
     }
 
     @Override
@@ -31,12 +33,12 @@ public class kSTuner extends OpMode {
         if (gamepad1.dpadUpWasPressed()) { kS += currentStep; }
         if (gamepad1.dpadDownWasPressed()) { kS -= currentStep; }
 
-        flyWheelMotor.setFlyWheelMotor(kS);
+        pollenMotor.setPollenMotor(kS);
 
         telemetry.addData("Step","%.6", currentStep);
         telemetry.addData("kS", "%.6", kS);
-        telemetry.addData("RPM", flyWheelMotor.getRPM());
-        telemetry.addData("Ticks Per Second", flyWheelMotor.getTicksPerSec());
+        telemetry.addData("RPM", pollenMotor.getRPM());
+        telemetry.addData("Ticks Per Second", pollenMotor.getTicksPerSec());
 
 
 
