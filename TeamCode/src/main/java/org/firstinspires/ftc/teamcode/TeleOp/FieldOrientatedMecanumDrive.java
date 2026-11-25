@@ -31,6 +31,12 @@ public class FieldOrientatedMecanumDrive extends OpMode {
     int pollen_motor_c = 1;
     int nectar_motor_c = 1;
     double intakePower = 0.5;
+    boolean reverseIntake = false;
+    boolean reversePollenMotor = false;
+    boolean reverseNectarMotor = false;
+    boolean servoIsActive = false;
+
+
 
     @Override
     public void loop() {
@@ -46,17 +52,23 @@ public class FieldOrientatedMecanumDrive extends OpMode {
 
         // --------------- Intake Motor Logic ----------------
 
+
         if (gamepad1.crossWasReleased()) {
             intake_motor_c = -intake_motor_c;
+            reverseIntake = true;
+        } else {
+            reverseIntake = false;
         }
 
         if (gamepad1.circle) {
             intakeMotor.setIntakePower(intake_motor_c * intakePower);
             servos.setUpperServo(1);
             servos.setLowerServo(1);
+            servoIsActive = true;
         } else {
             intakeMotor.setIntakePower(0);
             servos.stopServos();
+            servoIsActive = false;
         }
 
         // ------------------ Servo Logic -------------------------
@@ -65,36 +77,45 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         if (gamepad1.square) {
             servos.setUpperServo(1);
             servos.setLowerServo(1);
+            servoIsActive = true;
         } else {
             servos.stopServos();
+            servoIsActive = false;
         }
 
         // --------------- Fly Wheel Motor Logic ----------------
 
         if (gamepad1.leftBumperWasReleased()) {
             pollen_motor_c = -pollen_motor_c;
+            reversePollenMotor = true;
+        } else {
+            reversePollenMotor = false;
         }
 
         pollenMotor.setPollenMotor(gamepad1.left_trigger * pollen_motor_c);
 
         if (gamepad1.rightBumperWasReleased()) {
             nectar_motor_c = -nectar_motor_c;
+            reverseNectarMotor = true;
+        } else {
+            reverseNectarMotor = false;
         }
 
         nectarMotor.setNectarMotor(gamepad1.right_trigger * nectar_motor_c);
 
-        if (pollenMotor.getRPM() == 1000) {
-            servos.setLowerServo(1);
-        }
-        if (nectarMotor.getRPM() == 1000) {
-            servos.setUpperServo(1);
-        }
-
-
             // ------------- Telemetry ------------------
 
             telemetry.addData("Pollen motor power", gamepad1.left_trigger * pollen_motor_c);
-            telemetry.addData("Nectar motor power", gamepad1.left_trigger * nectar_motor_c);
+            telemetry.addData("Nectar motor power", gamepad1.right_trigger * nectar_motor_c);
+
+            telemetry.addData("Pollen motor RPM", pollenMotor.getRPM());
+            telemetry.addData("Nectar motor RPM", nectarMotor.getRPM());
+
+            telemetry.addData("Reverse intake direction", reverseIntake);
+            telemetry.addData("Reverse Pollen motor direction", reversePollenMotor);
+            telemetry.addData("Reverse Nectar motor direction", reverseNectarMotor);
+
+            telemetry.addData("Servo state", servoIsActive);
         }
 
     }

@@ -21,15 +21,6 @@ public class NectarMotor {
 
     // https://www.youtube.com/watch?v=KVPdbWcAyUY
 
-    // we create another init method as PIDF tuning works without encoding
-    public void initPIDF(HardwareMap hwMap) {
-        flyWheelMotortwo = hwMap.get(DcMotor.class, "fly_wheel");
-        flyWheelMotortwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        flyWheelMotortwo.setDirection(DcMotor.Direction.FORWARD);
-    }
-
-    private double encoderCPM = 28;
-
     double kS, kV, kP; // need to tune these constants this week
 
     /*
@@ -37,6 +28,15 @@ public class NectarMotor {
     kV (constant voltage) amount of voltage needed to maintain flywheel at desired RPM
     kP (constant proportional) is a proportional constant where the further away from our target RPM brings us closer
      */
+
+    private double encoderCPM = 28;
+
+    // we create another init method as PIDF tuning works without encoding
+    public void initPIDF(HardwareMap hwMap) {
+        flyWheelMotortwo = hwMap.get(DcMotorEx.class, "fly_wheel");
+        flyWheelMotortwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        flyWheelMotortwo.setDirection(DcMotor.Direction.FORWARD);
+    }
 
     public double getTicksPerSec() {
         // cast into a DcMotorEx class as that class has more methods than the basic DcMotor, if wanted we could just turn it into a base Dc Motor
